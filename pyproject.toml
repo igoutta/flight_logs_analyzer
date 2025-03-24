@@ -1,0 +1,15 @@
+[project]
+name = "flight-logs-analyzer"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "plotly[express]>=6.0.1",
+    "polars>=1.26.0",
+]
+
+[dependency-groups]
+dev = [
+    "marimo>=0.11.26",
+]
