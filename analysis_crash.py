@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.11.26"
+__generated_with = "0.13.8"
 app = marimo.App(width="medium")
 
 
@@ -8,16 +8,16 @@ app = marimo.App(width="medium")
 def _(mo):
     mo.md(
         r"""
-        # Exploratory flight data analysis
+    # Exploratory flight data analysis
 
-        **By**: Gustavo Alvarado
+    **By**: Gustavo Alvarado
 
-        **Drone**: RB-01
+    **Drone**: RB-01
 
-        **Flight log**: 19-07-2023
+    **Flight log**: 19-07-2023
 
-        ## 1. Scouting data
-        """
+    ## 1. Scouting data
+    """
     )
     return
 
@@ -49,7 +49,7 @@ def _(df_1):
     df_2 = df_1.fill_null(strategy="zero")
     new_names = ["time", "voltage", "current", "speed", "altitude"]
     df_2.columns = new_names
-    return df_2, new_names
+    return (df_2,)
 
 
 @app.cell
@@ -85,7 +85,7 @@ def _():
     Labels = namedtuple('Labels', ['time', 'power', 'aspd', 'alt'])
     lbl = Labels(time="Tiempo transcurrido (HH:MM:SS)", power="Power [kW]", aspd="Airspeed [m/s]", alt="Altitude [m.s.n.m.]")
     print(lbl.time)
-    return Labels, lbl, namedtuple
+    return (lbl,)
 
 
 @app.cell
@@ -112,11 +112,7 @@ def _(df_4, lbl, px):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## 2. Climb stage
-        """
-    )
+    mo.md(r"""## 2. Climb stage""")
     return
 
 
@@ -145,7 +141,7 @@ def _(df_5, pl):
         pl.col("z_altitude") >= df_5.min()["z_altitude"][0] + 0.35
     ).head(1)
     change_altitude["time"][0]
-    return (change_altitude,)
+    return
 
 
 @app.cell
@@ -235,11 +231,7 @@ def _(go, lbl, plot_title, plot_x, plot_y1, plot_y2, plot_y3):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### 2.1. Filtering VTOL Takeoff
-        """
-    )
+    mo.md(r"""### 2.1. Filtering VTOL Takeoff""")
     return
 
 
@@ -326,11 +318,7 @@ def _(df_takeoff_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ### 2.2. Filtering Climb in Cruise
-        """
-    )
+    mo.md(r"""### 2.2. Filtering Climb in Cruise""")
     return
 
 
@@ -408,11 +396,7 @@ def _(df_climb):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## 3. Cruise stable sample
-        """
-    )
+    mo.md(r"""## 3. Cruise stable sample""")
     return
 
 
@@ -439,7 +423,7 @@ def _(df_5, pl):
         "cummulates"
     )
     df_stable.glimpse()
-    return df_cummulates, df_stable, mid_current, stable_cummulates
+    return (df_stable,)
 
 
 @app.cell
@@ -522,11 +506,7 @@ def _(df_stable):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-        ## 4. Landing stage
-        """
-    )
+    mo.md(r"""## 4. Landing stage""")
     return
 
 
@@ -539,7 +519,7 @@ def _(df_5, pl):
     _q = df_5.lazy().filter(pl.col("time") > last_reached_time, pl.col("current") > 4)
     df_landing = _q.collect()
     df_landing.glimpse()
-    return df_landing, last_reached, last_reached_time
+    return (df_landing,)
 
 
 @app.cell

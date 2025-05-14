@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.11.26"
+__generated_with = "0.13.8"
 app = marimo.App(width="medium")
 
 
@@ -8,16 +8,16 @@ app = marimo.App(width="medium")
 def _(mo):
     mo.md(
         r"""
-        # Exploratory flight data analysis
+    # Exploratory flight data analysis
 
-        **By**: Gustavo Alvarado
+    **By**: Gustavo Alvarado
 
-        **Drone**: RB-01
+    **Drone**: RB-01
 
-        **Flight log**: 14-06-2023
+    **Flight log**: 14-06-2023
 
-        ## 1. Scouting data
-        """
+    ## 1. Scouting data
+    """
     )
     return
 
@@ -49,7 +49,7 @@ def _(df_1):
     df_2 = df_1.fill_null(strategy="zero")
     new_names = ["time", "voltage", "current", "speed", "altitude"]
     df_2.columns = new_names
-    return df_2, new_names
+    return (df_2,)
 
 
 @app.cell
@@ -85,7 +85,7 @@ def _():
     Labels = namedtuple('Labels', ['time', 'power', 'aspd', 'alt'])
     lbl = Labels(time="Tiempo transcurrido (HH:MM:SS)", power="Power [kW]", aspd="Airspeed [m/s]", alt="Altitude [m.s.n.m.]")
     print(lbl.alt)
-    return Labels, lbl, namedtuple
+    return (lbl,)
 
 
 @app.cell
@@ -388,7 +388,7 @@ def _(df_4, pl):
         "cummulates"
     )
     df_stable.glimpse()
-    return df_cummulates, df_stable, mid_current, stable_cummulates
+    return (df_stable,)
 
 
 @app.cell
@@ -472,7 +472,7 @@ def _(df_4, pl):
     _q = df_4.lazy().filter(pl.col("time") > last_reached_time, pl.col("current") > 4)
     df_landing = _q.collect()
     df_landing.glimpse()
-    return df_landing, last_reached, last_reached_time
+    return df_landing, last_reached_time
 
 
 @app.cell
